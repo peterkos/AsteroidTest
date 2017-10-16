@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class player : MonoBehaviour {
 
+	// Unorganized ivars
 	public float speed;
 	public Rigidbody2D rigid2D;
 	public ParticleSystem ps;
 	public bool isColliding;
+	public Rigidbody2D hexagon;
+	public Camera camera;
 
-	// Use this for initialization
+
 	void Start () {
 		rigid2D = GetComponent<Rigidbody2D>();
+		camera = Camera.main;
 		speed = 10;
 		isColliding = false;
 	}
@@ -47,6 +51,19 @@ public class player : MonoBehaviour {
 			rigid2D.velocity = new Vector2(0, 0);
 			//TODO: Hanlde collision velocity
 		}
+
+		// Spawn new hexagon when Meta key pressed
+		if (Input.GetKeyDown(KeyCode.LeftWindows) || Input.GetKeyDown(KeyCode.LeftApple)) {
+			
+			// TODO: Restrict margin so the entire object is accessible for the player onscreen
+			float rnd = Random.Range(0.0f, 1.0f);
+			Vector3 spawnPos = new Vector3(Screen.width * rnd, Screen.height * rnd, 0);
+			Vector3 pos = camera.ScreenToWorldPoint(spawnPos);
+
+			// Instantiate the clone
+			Rigidbody2D hexagonClone = Object.Instantiate(hexagon, pos, transform.rotation) as Rigidbody2D;
+		}
+
 
 	}
 

@@ -1,10 +1,13 @@
 fileFormatVersion: 2
 guid: c8360d8bff25e495681158eb5cf5d6d9
-timeCreated: 1507766441
+timeCreated: 1508122125
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - rigid2D: {instanceID: 0}
+  - ps: {instanceID: 0}
+  - hexagon: {fileID: 50500009552147776, guid: f7d62df87939b4144b5c6622dba04200, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

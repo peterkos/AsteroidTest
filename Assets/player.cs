@@ -18,16 +18,18 @@ public class player : MonoBehaviour {
 		camera = Camera.main;
 		speed = 10;
 		isColliding = false;
+
+		InvokeRepeating("spawnHexagon", 1.0f, 0.4f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		if(Input.GetKeyDown(KeyCode.RightArrow))
-			rigid2D.velocity = new Vector2(speed, rigid2D.velocity.y);
+		rigid2D.velocity = new Vector2(speed, rigid2D.velocity.y);
 
 		if(Input.GetKeyDown(KeyCode.LeftArrow))
-			rigid2D.velocity = new Vector2(-speed, rigid2D.velocity.y);
+		rigid2D.velocity = new Vector2(-speed, rigid2D.velocity.y);
 
 		if(Input.GetKeyDown(KeyCode.UpArrow)) {
 			// If pushing object, push it faster
@@ -35,7 +37,7 @@ public class player : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown(KeyCode.DownArrow))
-			rigid2D.velocity = new Vector2(rigid2D.velocity.x, -speed);
+		rigid2D.velocity = new Vector2(rigid2D.velocity.x, -speed);
 
 
 		// Cancel velocity in respective direction if key is not being held anymore
@@ -46,26 +48,26 @@ public class player : MonoBehaviour {
 				rigid2D.velocity = new Vector2(rigid2D.velocity.x, 0);
 			}
 
-		// Otherwise, stop the triangle if nothign is held down
+		// Otherwise, stop the triangle if nothing is held down
 		} else {
 			rigid2D.velocity = new Vector2(0, 0);
 			//TODO: Hanlde collision velocity
 		}
 
-		// Spawn new hexagon when Meta key pressed
-		if (Input.GetKeyDown(KeyCode.LeftWindows) || Input.GetKeyDown(KeyCode.LeftApple)) {
-			
-			// TODO: Restrict margin so the entire object is accessible for the player onscreen
-			float rnd = Random.Range(0.0f, 1.0f);
-			Vector3 spawnPos = new Vector3(Screen.width * rnd, Screen.height * rnd, 0);
-			Vector3 pos = camera.ScreenToWorldPoint(spawnPos);
-
-			// Instantiate the clone
-			Rigidbody2D hexagonClone = Object.Instantiate(hexagon, pos, transform.rotation) as Rigidbody2D;
-		}
-
 
 	}
+
+	void spawnHexagon() {
+		// TODO: Restrict margin so the entire object is accessible for the player onscreen
+		float rnd = Random.Range(0.0f, 1.0f);
+		Vector3 spawnPos = new Vector3(Screen.width * rnd, Screen.height + 100, 0);
+		Vector3 pos = camera.ScreenToWorldPoint(spawnPos);
+		pos.z = 0;
+
+			// Instantiate clone
+		Rigidbody2D hexagonClone = Object.Instantiate(hexagon, pos, transform.rotation) as Rigidbody2D;
+	}
+
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		print("Collision!");
@@ -109,16 +111,16 @@ public class player : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D coll) {
 		print("Anti-Collision!");
-			if (coll.gameObject.tag == "Enemy") {
+		if (coll.gameObject.tag == "Enemy") {
 				// print("Destroyed.");
 				// Destroy(GetComponent<ParticleSystem>());
 
 				// Slow down the triangle to regular speed
-				speed = 10;
+			speed = 10;
 
 				// Turn off rocket
-				var emission = ps.emission;
-				emission.enabled = false;
+			var emission = ps.emission;
+			emission.enabled = false;
 		}
 
 	}

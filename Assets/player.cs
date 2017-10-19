@@ -11,6 +11,7 @@ public class player : MonoBehaviour {
 	public bool isColliding;
 	public Rigidbody2D hexagon;
 	public Camera camera;
+	public List<Component> spawnedHexagons;
 
 
 	void Start () {
@@ -18,6 +19,7 @@ public class player : MonoBehaviour {
 		camera = Camera.main;
 		speed = 10;
 		isColliding = false;
+		spawnedHexagons = new List<Component>();
 
 		InvokeRepeating("spawnHexagon", 1.0f, 0.4f);
 	}
@@ -33,7 +35,8 @@ public class player : MonoBehaviour {
 
 		if(Input.GetKeyDown(KeyCode.UpArrow)) {
 			// If pushing object, push it faster
-			rigid2D.velocity = new Vector2(rigid2D.velocity.x, isColliding ? speed : speed * 1.3f);
+			// rigid2D.velocity = new Vector2(rigid2D.velocity.x, isColliding ? speed : speed * 1.3f);
+			rigid2D.velocity = new Vector2(rigid2D.velocity.x, speed * 1.3f);
 		}
 
 		if(Input.GetKeyDown(KeyCode.DownArrow))
@@ -54,7 +57,31 @@ public class player : MonoBehaviour {
 			//TODO: Hanlde collision velocity
 		}
 
+		// Loop through spawned hexagons to see if any are offscreen
+		// If they are, they are despawned, since the player can't view them.
+		for (int i = spawnedHexagons.Count - 1; i > 0; i--) {
 
+			// Get current hexagon
+			Rigidbody2D hex = spawnedHexagons[i] as Rigidbody2D; 
+			Vector3 heightTest = camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+
+			// Compare to check if the entire hexagon is offscreen
+			if ((hex.position.y + hex.transform.localScale.y) < heightTest.y) {
+
+				// Change color for debugging purposes
+				SpriteRenderer hexSprite = hex.GetComponent<SpriteRenderer>();
+				hexSprite.color = new Color(0, 0, 1, 1);
+
+				// Destroy the object
+				// Destroy(spawnedHexagons[i]);
+				spawnedHexagons.RemoveAt(spawnedHexagons.Count - i);
+				print(spawnedHexagons.Count);
+				break;
+
+		
+			}
+
+		}
 	}
 
 	void spawnHexagon() {
@@ -64,10 +91,13 @@ public class player : MonoBehaviour {
 		Vector3 pos = camera.ScreenToWorldPoint(spawnPos);
 		pos.z = 0;
 
-			// Instantiate clone
+		// Instantiate clone
 		Rigidbody2D hexagonClone = Object.Instantiate(hexagon, pos, transform.rotation) as Rigidbody2D;
-	}
+		
+		spawnedHexagons.Add(hexagonClone);
+		// print(spawnedHexagons.Count);
 
+	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		print("Collision!");
@@ -112,13 +142,9 @@ public class player : MonoBehaviour {
 	void OnCollisionExit2D(Collision2D coll) {
 		print("Anti-Collision!");
 		if (coll.gameObject.tag == "Enemy") {
-				// print("Destroyed.");
-				// Destroy(GetComponent<ParticleSystem>());
-
-				// Slow down the triangle to regular speed
 			speed = 10;
 
-				// Turn off rocket
+			// Turn off rocket
 			var emission = ps.emission;
 			emission.enabled = false;
 		}

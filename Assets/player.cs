@@ -57,31 +57,6 @@ public class player : MonoBehaviour {
 			//TODO: Hanlde collision velocity
 		}
 
-		// Loop through spawned hexagons to see if any are offscreen
-		// If they are, they are despawned, since the player can't view them.
-		for (int i = spawnedHexagons.Count - 1; i > 0; i--) {
-
-			// Get current hexagon
-			Rigidbody2D hex = spawnedHexagons[i] as Rigidbody2D; 
-			Vector3 heightTest = camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
-
-			// Compare to check if the entire hexagon is offscreen
-			if ((hex.position.y + hex.transform.localScale.y) < heightTest.y) {
-
-				// Change color for debugging purposes
-				SpriteRenderer hexSprite = hex.GetComponent<SpriteRenderer>();
-				hexSprite.color = new Color(0, 0, 1, 1);
-
-				// Destroy the object
-				// Destroy(spawnedHexagons[i]);
-				spawnedHexagons.RemoveAt(spawnedHexagons.Count - i);
-				print(spawnedHexagons.Count);
-				break;
-
-		
-			}
-
-		}
 	}
 
 	void spawnHexagon() {

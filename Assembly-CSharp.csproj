@@ -51,8 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\hexscript.cs" />
-     <Compile Include="Assets\player.cs" />
+     <Compile Include="Assets\HexagonScript.cs" />
+     <Compile Include="Assets\PlayerScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

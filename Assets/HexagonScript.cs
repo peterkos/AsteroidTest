@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class hexscript : MonoBehaviour {
+public class HexagonScript : MonoBehaviour {
 
 	public SpriteRenderer hexSprite;
 	public Camera camera;

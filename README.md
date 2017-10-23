@@ -1,4 +1,4 @@
-#Asteroid Test
+# Asteroid Test
 
 Currently a repo to hold a smiple asteroid-dodging game. See "Project" tab in GitHub for status and roadmap.
 

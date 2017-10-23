@@ -1,13 +1,15 @@
 fileFormatVersion: 2
 guid: c8360d8bff25e495681158eb5cf5d6d9
-timeCreated: 1508122125
+timeCreated: 1508716893
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - rigid2D: {instanceID: 0}
   - ps: {instanceID: 0}
-  - hexagon: {fileID: 50500009552147776, guid: f7d62df87939b4144b5c6622dba04200, type: 2}
+  - camera: {instanceID: 0}
+  - hexagon: {fileID: 4658500749430284, guid: f7d62df87939b4144b5c6622dba04200, type: 2}
+  - hexagonInstance: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

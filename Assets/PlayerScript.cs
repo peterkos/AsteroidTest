@@ -5,14 +5,14 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
 
 
-	// Unorganized ivars
-	public float speed;
 	public Rigidbody2D rigid2D;
 	public ParticleSystem ps;
-	public bool isColliding;
-	public Rigidbody2D hexagon;
 	public Camera camera;
-	public List<Component> spawnedHexagons;
+	public float speed;
+	public bool isColliding;
+
+	public Transform hexagon;
+	public GameObject hexagonInstance;
 
 
 	void Start () {
@@ -20,7 +20,6 @@ public class PlayerScript : MonoBehaviour {
 		camera = Camera.main;
 		speed = 10;
 		isColliding = false;
-		spawnedHexagons = new List<Component>();
 
 		InvokeRepeating("spawnHexagon", 1.0f, 0.4f);
 	}
@@ -67,11 +66,8 @@ public class PlayerScript : MonoBehaviour {
 		Vector3 pos = camera.ScreenToWorldPoint(spawnPos);
 		pos.z = 0;
 
-		// Instantiate clone
-		Rigidbody2D hexagonClone = Object.Instantiate(hexagon, pos, transform.rotation) as Rigidbody2D;
-		
-		spawnedHexagons.Add(hexagonClone);
-		// print(spawnedHexagons.Count);
+		// Instantiate clone as separate instance
+		hexagonInstance = Instantiate(hexagon.gameObject, pos, transform.rotation).gameObject;
 
 	}
 

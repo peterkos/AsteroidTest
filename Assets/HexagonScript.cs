@@ -6,10 +6,16 @@ public class HexagonScript : MonoBehaviour {
 
 	public SpriteRenderer hexSprite;
 	public Camera camera;
+	public PlayerScript playerScript;
 
 
 	// Use this for initialization
 	void Start () {
+
+		// Grab the main PlayerScript
+		GameObject triangle = GameObject.Find("Triangle");
+		playerScript = triangle.GetComponent<PlayerScript>();
+
 		hexSprite = gameObject.GetComponent<SpriteRenderer>();
 		camera = Camera.main;
 	}
@@ -21,18 +27,13 @@ public class HexagonScript : MonoBehaviour {
 
 	void OnBecameInvisible() {
 
-		// Check if object is also BELOW the screen
+		// First, check if object is also BELOW the screen
 		// This is because objects are spawned off the top of the screen, which
-		// would despawn the object immediatly using the default check.
-		
-		Vector3 heightTest = camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
-
-		// Compare to check if the entire hexagon is offscreen
-		print(hexSprite.transform.position.y);
+		// would despawn the object immediately using the default check.
 		if ((hexSprite.transform.position.y + hexSprite.transform.localScale.y) < 0) {
-			Destroy(gameObject);
-			print("HELL YEA");
-
+			// Destroy an instance of the hexagon prefab
+			// rather than the prefab itself
+			Destroy(playerScript.hexagonInstance);
 		}
 	}
 

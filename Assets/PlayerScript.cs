@@ -24,14 +24,14 @@ public class PlayerScript : MonoBehaviour {
 		InvokeRepeating("spawnHexagon", 1.0f, 0.4f);
 	}
 	
-	// Update is called once per frame
+
 	void Update () {
 
 		if(Input.GetKeyDown(KeyCode.RightArrow))
-		rigid2D.velocity = new Vector2(speed, rigid2D.velocity.y);
+			rigid2D.velocity = new Vector2(speed, rigid2D.velocity.y);
 
 		if(Input.GetKeyDown(KeyCode.LeftArrow))
-		rigid2D.velocity = new Vector2(-speed, rigid2D.velocity.y);
+			rigid2D.velocity = new Vector2(-speed, rigid2D.velocity.y);
 
 		if(Input.GetKeyDown(KeyCode.UpArrow)) {
 			// If pushing object, push it faster
@@ -40,8 +40,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown(KeyCode.DownArrow))
-		rigid2D.velocity = new Vector2(rigid2D.velocity.x, -speed);
-
+			rigid2D.velocity = new Vector2(rigid2D.velocity.x, -speed);
 
 		// Cancel velocity in respective direction if key is not being held anymore
 		if (Input.anyKey == true) {
@@ -54,10 +53,11 @@ public class PlayerScript : MonoBehaviour {
 		// Otherwise, stop the triangle if nothing is held down
 		} else {
 			rigid2D.velocity = new Vector2(0, 0);
-			//TODO: Hanlde collision velocity
+			//TODO: Handle collision velocity
 		}
 
 	}
+
 
 	void spawnHexagon() {
 		// TODO: Restrict margin so the entire object is accessible for the player onscreen
@@ -70,6 +70,7 @@ public class PlayerScript : MonoBehaviour {
 		hexagonInstance = Instantiate(hexagon.gameObject, pos, transform.rotation).gameObject;
 
 	}
+
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		print("Collision!");
@@ -116,7 +117,7 @@ public class PlayerScript : MonoBehaviour {
 		if (coll.gameObject.tag == "Enemy") {
 			speed = 10;
 
-			// Turn off rocket
+			// Turn off rocket effect
 			var emission = ps.emission;
 			emission.enabled = false;
 		}

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HexagonScript : MonoBehaviour {
 
+
 	public SpriteRenderer hexSprite;
 	public Camera camera;
 	public PlayerScript playerScript;
 
 
-	// Use this for initialization
 	void Start () {
 
 		// Grab the main PlayerScript
@@ -19,12 +19,13 @@ public class HexagonScript : MonoBehaviour {
 		hexSprite = gameObject.GetComponent<SpriteRenderer>();
 		camera = Camera.main;
 	}
+
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
 
+	
 	void OnBecameInvisible() {
 
 		// First, check if object is also BELOW the screen
